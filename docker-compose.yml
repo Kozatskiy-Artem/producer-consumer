@@ -57,19 +57,19 @@ services:
     networks:
       - django_network
 
-#  celery-beat:
-#    build: .
-#    command: /bin/sh -c "rm -f celerybeat-schedule && celery -A core beat --loglevel=info"
-#    container_name: celery_beat_service
-#    volumes:
-#      - .:/code
-#    env_file:
-#      - .env
-#    depends_on:
-#      - redis
-#      - web
-#    networks:
-#      - django_network
+  celery-beat:
+    build: .
+    command: /bin/sh -c "rm -f celerybeat-schedule && celery -A core beat --loglevel=info"
+    container_name: celery_beat_service
+    volumes:
+      - .:/code
+    env_file:
+      - .env
+    depends_on:
+      - redis
+      - web
+    networks:
+      - django_network
 
 volumes:
   service_data:
