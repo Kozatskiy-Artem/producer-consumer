@@ -14,7 +14,8 @@ class CustomUserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email, username, first_name, last_name, password, **extra_fields):
+    def create_superuser(
+            self, email, username, password, first_name='admin_first', last_name='admin_last', **extra_fields):
         """Create and return a new superuser."""
         extra_fields.setdefault("is_staff", True)
         extra_fields.setdefault("is_superuser", True)
@@ -37,15 +38,17 @@ class CustomUserManager(BaseUserManager):
 
 
 class CustomUser(AbstractUser):
+    email = models.CharField(max_length=50, unique=True)
     probation = models.BooleanField(default=True)
     position = models.CharField(max_length=50)
 
+    USERNAME_FIELD = 'email'
     objects = CustomUserManager()
-    REQUIRED_FIELDS = ['email']
+    REQUIRED_FIELDS = []
 
 
 class Order(models.Model):
-    task_id = models.PositiveIntegerField()
+    task_id = models.CharField(max_length=50)
     name = models.CharField(max_length=100)
     description = models.CharField(max_length=255)
     employee = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="orders")

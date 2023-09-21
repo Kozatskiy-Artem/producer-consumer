@@ -1,0 +1,11 @@
+{% extends '_base.html' %}
+
+{% block title %} Closed order {% endblock title %}
+
+{% block content %}
+<div class="col-lg-8 offset-lg-2 content-block">
+  <h2 class="title">Closed order</h2>
+  <h3>{{message}}</h3>
+  <a href="{% url 'producer_consumer:orders_list' %}" class="btn btn-info">Back</a>
+</div>
+{% endblock content %}

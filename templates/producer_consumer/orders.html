@@ -1,0 +1,39 @@
+{% extends '_base.html' %}
+
+{% block title %} All orders {% endblock title %}
+
+{% block content %}
+<div class="col-lg-8 offset-lg-2 content-block">
+  <h2 class="title">All orders</h2>
+  <div class="table-responsive">
+    <table class="table table-hover" id="userTable">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Task id</th>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Employee</th>
+          <th>Close</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for order in orders %}
+          <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ order.task_id }}</td>
+            <td>{{ order.name }}</td>
+            <td>{{ order.description }}</td>
+            <td>{{ order.employee }}</td>
+            <td><a href="{% url 'producer_consumer:delete_order' order.pk %}" class="btn btn-primary bi bi-trash3"></a></td>
+          </tr>
+        {% empty %}
+            <tr>
+              <td> No orders yet </td>
+            </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock content %}
